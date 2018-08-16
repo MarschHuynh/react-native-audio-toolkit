@@ -134,8 +134,8 @@ class Recorder extends EventEmitter {
 
   toggleRecord(callback = _.noop) {
     if (this._state === MediaStates.RECORDING) {
-      this.stop((err) => {
-        callback(err, true);
+      this.pause((err) => {
+        callback(err, false);
       });
     } else {
       this.record((err) => {
@@ -155,6 +155,7 @@ class Recorder extends EventEmitter {
   get canRecord()   { return this._state >= MediaStates.PREPARED;  }
   get canPrepare()  { return this._state == MediaStates.IDLE;      }
   get isRecording() { return this._state == MediaStates.RECORDING; }
+  get isPaused()    { return this._state == MediaStates.PAUSED;    }
   get isPrepared()  { return this._state == MediaStates.PREPARED;  }
   get fsPath()      { return this._fsPath; }
 }
